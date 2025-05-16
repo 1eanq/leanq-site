@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+.header {
   background-color: #111111;
   min-height: 100vh;
   display: flex;
@@ -37,7 +37,7 @@
   }
 }
 
-.App-container {
+.container {
   min-height: 100vh;
   background: #f0f2f5;
   color: #222;
