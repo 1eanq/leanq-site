@@ -4,6 +4,30 @@ import Snowfall from './components/Snowfall';
 function App() {
     const [snowActive, setSnowActive] = useState(false);
     const shakeTimeout = React.useRef(null);
+    const Header = styled.h1`
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      color: #0a3d62;
+      animation: ${fadeInUp} 0.7s ease forwards;
+    
+      @media (max-width: 480px) {
+        font-size: 3rem;
+      }
+    `;
+    const Container = styled.div`
+      min-height: 100vh;
+      background: #f0f2f5;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    `;
 
     useEffect(() => {
         function handleMotion(event) {
@@ -26,7 +50,7 @@ function App() {
                 shakeTimeout.current = setTimeout(() => {
                     setSnowActive(false);
                     shakeTimeout.current = null;
-                }, 3000);
+                }, 10000);
             }
         }
 
@@ -58,16 +82,12 @@ function App() {
     }, []);
 
     return (
-        <>
-            {/* Твой основной UI */}
-            <div>
-                <h1>Потряси телефон, чтобы пошёл снег!</h1>
-                {/* ...твой контент... */}
-            </div>
-
-            {/* Снег поверх страницы */}
+        <Container>
+            <Header>
+                leanq
+            </Header>
             <Snowfall active={snowActive} />
-        </>
+        </Container>
     );
 }
 
