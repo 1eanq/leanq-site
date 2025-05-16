@@ -1,105 +1,64 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { FaGithub } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 
-function InteractiveGithubButton() {
-    const [tiltX, setTiltX] = useState(0);
-    const [tiltY, setTiltY] = useState(0);
-    const [scale, setScale] = useState(1);
-    const buttonRef = useRef(null);
-
-    // для throttling
-    const lastUpdate = useRef(0);
+const GitHubButtonWithTilt = () => {
+    const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
-        function handleOrientation(event) {
-            const now = Date.now();
-            if (now - lastUpdate.current < 50) return; // обновляем не чаще 50ms
-            lastUpdate.current = now;
+        const handleOrientation = (event) => {
+            // event.beta - наклон вперед/назад, event.gamma - наклон влево/вправо
+            let x = event.gamma || 0; // наклон по X
+            let y = event.beta || 0;  // наклон по Y
 
-            if (typeof event.beta === 'number' && typeof event.gamma === 'number') {
-                const tiltXAngle = event.beta * 0.7;
-                const tiltYAngle = event.gamma * 1.2;
-                setTiltX(tiltXAngle);
-                setTiltY(tiltYAngle);
-                setScale(1.05);
-            }
+            // Ограничиваем значения, чтобы не было сильных наклонов
+            x = Math.min(Math.max(x, -30), 30);
+            y = Math.min(Math.max(y, -30), 30);
+
+            setTilt({ x, y });
+        };
+
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission()
+                .then(response => {
+                    if (response === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation);
+                    }
+                })
+                .catch(console.error);
+        } else {
+            window.addEventListener('deviceorientation', handleOrientation);
         }
-
-        function handleOrientationReset() {
-            setTiltX(0);
-            setTiltY(0);
-            setScale(1);
-        }
-
-        window.addEventListener('deviceorientation', handleOrientation, true);
-        window.addEventListener('deviceorientation', handleOrientationReset, false);
 
         return () => {
             window.removeEventListener('deviceorientation', handleOrientation);
-            window.removeEventListener('deviceorientation', handleOrientationReset);
         };
     }, []);
-
-    function handleMouseMove(e) {
-        if (!buttonRef.current) return;
-
-        const rect = buttonRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const deltaX = (x - centerX) / centerX;
-        const deltaY = (y - centerY) / centerY;
-
-        const maxTilt = 15;
-        const maxScale = 1.1;
-
-        const tiltXAngle = -deltaY * maxTilt;
-        const tiltYAngle = deltaX * maxTilt;
-
-        setTiltX(tiltXAngle);
-        setTiltY(tiltYAngle);
-        setScale(maxScale);
-    }
-
-    function handleMouseLeave() {
-        setTiltX(0);
-        setTiltY(0);
-        setScale(1);
-    }
 
     return (
         <a
             href="https://github.com/1eanq/twitchannouncer"
             target="_blank"
             rel="noopener noreferrer"
-            ref={buttonRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
             style={{
                 display: 'inline-block',
-                transform: `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(${scale})`,
-                transition: 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)', // плавное ускорение/замедление
-                fontSize: 50,
-                color: '#333',
-                userSelect: 'none',
-                cursor: 'pointer',
-                width: 80,
-                height: 80,
+                width: '80px',
+                height: '80px',
+                backgroundColor: '#24292e',
+                borderRadius: '15px',
+                boxShadow: '0 8px 20px rgba(0,0,0,0.2)',
+                color: 'white',
+                fontSize: '40px',
                 textAlign: 'center',
                 lineHeight: '80px',
-                borderRadius: 12,
-                backgroundColor: '#f5f5f5',
-                boxShadow: `${-tiltY}px ${tiltX}px 15px rgba(0, 0, 0, 0.2)`,
+                transition: 'transform 0.3s ease',
+                transform: `rotateX(${tilt.y / 2}deg) rotateY(${tilt.x / 2}deg)`,
             }}
-            aria-label="GitHub repository"
-            title="GitHub repository"
+            aria-label="GitHub Repository"
         >
-            <FaGithub />
+            {/* Здесь можно вставить иконку GitHub из react-icons */}
+            {/* Например: <FaGithub style={{verticalAlign: 'middle'}} /> */}
+            &#x1F4BB;
         </a>
     );
-}
+};
 
-export default InteractiveGithubButton;
+export default GitHubButtonWithTilt;
