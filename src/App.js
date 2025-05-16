@@ -6,7 +6,7 @@ const HomePage = () => {
     return (
         <div className="container">
             <h1 className="header">leanq</h1>
-            <p className="subtitle">БОБРЫ ЗОНДБЕ 2 ВОЗВРАЩЕНИЕ НА ПЛОТИНУ</p>
+            <p className="subtitle">backend-developer</p>
             <a
                 className="github-link"
                 href="https://github.com/1eanq/twitchannouncer"
