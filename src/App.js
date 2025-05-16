@@ -15,8 +15,8 @@ const HomePage = () => {
                 title="GitHub репозиторий Telegram бота"
             >
                 <FaGithub className="github-icon" />
-                GitHub TwitchAnnouncer
             </a>
+            <p className={""}>twitchannouncer</p>
         </div>
     );
 };
