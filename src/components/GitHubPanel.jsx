@@ -17,26 +17,24 @@ function InteractiveGithubButton() {
             lastUpdate.current = now;
 
             if (typeof event.beta === 'number' && typeof event.gamma === 'number') {
-                const tiltXAngle = event.beta * 0.7;
-                const tiltYAngle = event.gamma * 1.2;
+                // beta: наклон вперед/назад (-180..180)
+                // gamma: наклон влево/вправо (-90..90)
+
+                // Ограничиваем значения, чтобы наклон не был слишком сильным
+                const tiltXAngle = Math.min(Math.max(event.beta, -30), 30) * 0.7;
+                const tiltYAngle = Math.min(Math.max(event.gamma, -30), 30) * 1.2;
+
                 setTiltX(tiltXAngle);
                 setTiltY(tiltYAngle);
                 setScale(1.05);
             }
         }
 
-        function handleOrientationReset() {
-            setTiltX(0);
-            setTiltY(0);
-            setScale(1);
-        }
-
         window.addEventListener('deviceorientation', handleOrientation, true);
-        window.addEventListener('deviceorientation', handleOrientationReset, false);
 
+        // При размонтировании удаляем обработчик
         return () => {
             window.removeEventListener('deviceorientation', handleOrientation);
-            window.removeEventListener('deviceorientation', handleOrientationReset);
         };
     }, []);
 
@@ -81,7 +79,7 @@ function InteractiveGithubButton() {
             style={{
                 display: 'inline-block',
                 transform: `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(${scale})`,
-                transition: 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)', // плавное ускорение/замедление
+                transition: 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
                 fontSize: 50,
                 color: '#333',
                 userSelect: 'none',
