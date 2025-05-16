@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Snowfall from './components/Snowfall';
+import Snowfall from './components/';
 
 function App() {
     const [snowActive, setSnowActive] = useState(false);
