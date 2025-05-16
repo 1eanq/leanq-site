@@ -1,3 +1,5 @@
+import GitHubPanel from './components/GitHubPanel';
+
 function App() {
   return (
     <div style={{
@@ -11,6 +13,7 @@ function App() {
       fontFamily: 'sans-serif'
     }}>
       БОБРЫ ЗОНДБЕ 2
+        <GitHubPanel />
     </div>
   );
 }
