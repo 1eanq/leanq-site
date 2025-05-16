@@ -102,8 +102,6 @@ const GithubIcon = styled.svg`
 const HomePage = () => {
     return (
         <Container>
-            <Header>leanq</Header>
-            <Subtitle>БОБРЫ ЗОНДБЕ 2 ВОЗВРАЩЕНИЕ НА ПЛОТИНУ</Subtitle>
             <GitHubPanel/>
         </Container>
     );
