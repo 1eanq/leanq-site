@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.App-container {
+  min-height: 100vh;
+  background: #f0f2f5;
+  color: #222;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
