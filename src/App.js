@@ -10,7 +10,7 @@ function App() {
       fontSize: '4rem',
       fontFamily: 'sans-serif'
     }}>
-      LEANQ
+      LEANQ КРУТ
     </div>
   );
 }
