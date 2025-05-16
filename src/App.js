@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub , FaTelegram} from 'react-icons/fa';
 import './App.css';
 
 const HomePage = () => {
@@ -17,6 +17,17 @@ const HomePage = () => {
                 <FaGithub className="github-icon" />
             </a>
             <p className={""}>twitchannouncer</p>
+            <p className={"subtitle"}>contact me</p>
+            <a
+                className="telegram-link"
+                href={"t.me/leanqha"}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="telegram личные сообщения"
+            >
+                <FaTelegram className="telegram-icon" />
+            </a>
+            <p className="">@leanqha</p>
         </div>
     );
 };
