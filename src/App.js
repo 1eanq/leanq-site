@@ -10,7 +10,7 @@ function App() {
       fontSize: '4rem',
       fontFamily: 'sans-serif'
     }}>
-      МОНСТРУОЗНЫЙ ХУЯКА 2
+      БОБРЫ ЗОНДБЕ 2
     </div>
   );
 }
