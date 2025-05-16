@@ -20,7 +20,7 @@ const HomePage = () => {
             <p className={"subtitle"}>contact me</p>
             <a
                 className="telegram-link"
-                href={"t.me/leanqha"}
+                href={"https://t.me/leanqha"}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="telegram личные сообщения"
