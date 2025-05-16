@@ -7,34 +7,43 @@ function InteractiveGithubButton() {
     const [scale, setScale] = useState(1);
     const buttonRef = useRef(null);
 
-    // для throttling
     const lastUpdate = useRef(0);
+    const resetTimeout = useRef(null);
 
     useEffect(() => {
         function handleOrientation(event) {
             const now = Date.now();
-            if (now - lastUpdate.current < 50) return; // обновляем не чаще 50ms
+            if (now - lastUpdate.current < 50) return; // throttling 50ms
             lastUpdate.current = now;
 
             if (typeof event.beta === 'number' && typeof event.gamma === 'number') {
-                // beta: наклон вперед/назад (-180..180)
-                // gamma: наклон влево/вправо (-90..90)
-
-                // Ограничиваем значения, чтобы наклон не был слишком сильным
                 const tiltXAngle = Math.min(Math.max(event.beta, -30), 30) * 0.7;
                 const tiltYAngle = Math.min(Math.max(event.gamma, -30), 30) * 1.2;
 
                 setTiltX(tiltXAngle);
                 setTiltY(tiltYAngle);
                 setScale(1.05);
+
+                // Если был таймер на сброс, сбрасываем его
+                if (resetTimeout.current) {
+                    clearTimeout(resetTimeout.current);
+                }
+                // Запускаем таймер на сброс через 500ms после последнего движения
+                resetTimeout.current = setTimeout(() => {
+                    setTiltX(0);
+                    setTiltY(0);
+                    setScale(1);
+                }, 500);
             }
         }
 
         window.addEventListener('deviceorientation', handleOrientation, true);
 
-        // При размонтировании удаляем обработчик
         return () => {
             window.removeEventListener('deviceorientation', handleOrientation);
+            if (resetTimeout.current) {
+                clearTimeout(resetTimeout.current);
+            }
         };
     }, []);
 
