@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub , FaTelegram} from 'react-icons/fa';
 import './App.css';
+import BotStatus from "./components/BotStatus";
 
 const HomePage = () => {
     return (
@@ -17,6 +18,7 @@ const HomePage = () => {
                 <FaGithub className="github-icon" />
             </a>
             <p className={""}>twitchannouncer</p>
+            <BotStatus/>
             <p className={"subtitle"}>contact me</p>
             <a
                 className="telegram-link"
