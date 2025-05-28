@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import DownloadResume from "../components/DownloadResume";
 
 export default function ResumePage() {
     return (
@@ -105,6 +106,7 @@ export default function ResumePage() {
                 </p>
             </section>
 
+            <DownloadResume/>
             {/* Кнопка возврата на главную */}
             <div style={{ textAlign: 'center', marginTop: 50 }}>
                 <Link
