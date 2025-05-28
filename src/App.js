@@ -1,37 +1,17 @@
 import React from 'react';
-import { FaGithub , FaTelegram} from 'react-icons/fa';
-import './App.css';
-import BotStatus from "./components/BotStatus";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage'; // путь к твоей главной странице
+import ResumePage from './pages/ResumePage'; // импорт страницы с резюме
 
-const HomePage = () => {
+function App() {
     return (
-        <div className="container">
-            <h1 className="header">leanq</h1>
-            <p className="subtitle">backend-developer</p>
-            <a
-                className="github-link"
-                href="https://github.com/1eanq/twitchannouncer"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="GitHub репозиторий Telegram бота"
-            >
-                <FaGithub className="github-icon" />
-            </a>
-            <p className={""}>twitchannouncer</p>
-            <BotStatus/>
-            <p className={"subtitle"}>contact me</p>
-            <a
-                className="telegram-link"
-                href={"https://t.me/leanqha"}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="telegram личные сообщения"
-            >
-                <FaTelegram className="telegram-icon" />
-            </a>
-            <p className="">@leanqha</p>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/resume" element={<ResumePage />} />
+            </Routes>
+        </Router>
     );
-};
+}
 
-export default HomePage;
+export default App;
