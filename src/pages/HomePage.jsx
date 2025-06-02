@@ -7,6 +7,7 @@ import '../App.css';
 const HomePage = () => {
     return (
         <div className="container">
+            переезд
             <h1 className="header">leanq</h1>
             <p className="subtitle">backend-developer</p>
 
